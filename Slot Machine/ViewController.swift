@@ -42,6 +42,9 @@ class ViewController: UIViewController {
     let kMarginForSlot:CGFloat = 2.0
     let kMarginForView:CGFloat = 10.0;
     
+    // Slots
+    var slots: [[Slot]] = []
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +54,8 @@ class ViewController: UIViewController {
         setupSecondContainer(self.secondContainer);
         setupThirdContainer(self.thirdContainer);
         setupFourthContainer(self.fourthContainer);
+        
+        
         
     }
 
@@ -75,7 +80,8 @@ class ViewController: UIViewController {
     }
     
     func spinButtonPressed (button: UIButton) {
-        
+        slots = Factory.createSlots()
+        setupSecondContainer(self.secondContainer)
     }
     
     // Container setups
@@ -111,7 +117,19 @@ class ViewController: UIViewController {
     func setupSecondContainer(containerView: UIView) {
         for var containerNumber = 0; containerNumber < kNumberOfContainers; ++containerNumber {
             for var slotNumber = 0; slotNumber < kNumberOfSlots; ++slotNumber {
+                
+                var slot: Slot
                 var slotImageView = UIImageView()
+                if slots.count != 0 {
+                    let slotContainer = slots[containerNumber]
+                    slot = slotContainer[slotNumber]
+                    slotImageView.image = slot.image
+                }
+                else {
+                    slotImageView.image = UIImage(named: "Ace")
+                }
+                
+                
                 slotImageView.backgroundColor = UIColor.yellowColor()
                 slotImageView.frame = CGRect(x: containerView.bounds.origin.x + (containerView.bounds.size.width * CGFloat(containerNumber) * kThird), y: containerView.bounds.origin.y + (containerView.bounds.size.height * CGFloat(slotNumber) * kThird), width: containerView.bounds.width * kThird - kMarginForSlot, height: containerView.bounds.height * kThird - kMarginForSlot)
                 containerView.addSubview(slotImageView)

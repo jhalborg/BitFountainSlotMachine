@@ -26,6 +26,7 @@ class Factory {
             var slotArray:[Slot] = []
             for var slotNumber = 0; slotNumber < kNumberOfSlots; ++slotNumber {
                 var slot = Factory.createSlot(slotArray);
+                slotArray.append(slot);
             }
             slots.append(slotArray)
         }
